@@ -176,8 +176,8 @@ def MotionDetectProc(e):
             pnconfig = PNConfiguration()
 
             ### This is for Pubkey and subkey , Channel name
-            pnconfig.publish_key = 'pub-c-e359e7f7-15d0-44b0-87af-7d595e55fa77'
-            pnconfig.subscribe_key = 'sub-c-3caad562-26c7-11e7-a5a9-0619f8945a4f'
+            pnconfig.publish_key = 'pub-c-****'
+            pnconfig.subscribe_key = 'sub-c-***'
             Channel = 'TestChannel'
             pubnub = PubNub(pnconfig)
             Happentime = dt.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
