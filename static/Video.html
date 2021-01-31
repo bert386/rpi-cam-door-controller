@@ -1,0 +1,81 @@
+<!doctype html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<title>Rapsberry Pi has been started in {{ title }}.</title>
+
+
+<script type="text/javascript" charset="utf-8" src="http://www.guriddo.net/demo/js/jquery.min.js"></script>
+<script type="text/javascript" charset="utf-8" src="http://www.guriddo.net/demo/js/trirand/i18n/grid.locale-en.js"></script>
+<script type="text/javascript" charset="utf-8" src="http://www.guriddo.net/demo/js/trirand/jquery.jqGrid.min.js"></script>
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+
+<link href="http://www.guriddo.net/demo/css/trirand/ui.jqgrid-bootstrap.css" rel="stylesheet" type="text/css" />
+
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+
+</head>
+	<body>
+		<section id="header">
+			<div class="header" align="center" >
+				<h1 style="font-weight:bold;">
+					Raspberry PI Zero W Motion System, System Started {{ title }}.</h1>	
+			</div>
+		</section>
+		<div class="row">
+			<div class="col-sm-6">
+				<table id="jqGrid01"></table>
+				<div id="VideoTable"></div>
+			</div>
+			<div class="col-sm-6">
+				<video id="myVideo0" autoplay="" preload="" controls="" src="" video="" ></video>
+			</div>						
+		</div>
+
+<script>
+	
+	var mydata = "{{ VideoList }}";
+	var json_data = eval( mydata.replace(/&#34;/g, '"') );
+	
+        $(document).ready(function () {
+
+			if ($.fn.jqGrid){
+				jQuery("#jqGrid01").jqGrid({
+					data: json_data,
+					datatype: "local",
+					height: 450,
+					rowNum: 10,
+					rowList: [10,20,30],
+					styleUI : 'Bootstrap',
+					colNames:['No.','FileName','Duration','Thumb','Notes'],
+					colModel:[
+						{name:'id',index:'id', width:60, sorttype:"int",search:true},
+						{name:'FileName',index:'FileName', width:250, sorttype:"text", formatter:"text"},
+						{name:'Duration',index:'Duration', width:120},
+						{name:'Thumb',index:'Thumb', width:80, align:"right",sorttype:"text", sortable:false},
+						{name:'Notes',index:'Notes', width:200, align:"right",sorttype:"text", sortable:false},
+					],
+					cellEdit: true,
+					onSelectCell:function (id,name,val,iRow,iCol){
+						if( name=="FileName" ){
+							alert("static/videos/" + val);
+							 //$("#myVideo0").src("static/videos/" + val);
+							 $("#myVideo0").attr("src","static/videos/" + val);
+						}
+					},
+					pager: "#VideoTable",
+					viewrecords: true,
+					caption: "Recorded Video List",
+					hidegrid:false,
+					altRows: true
+				});
+				
+			}
+            
+        });
+
+
+    </script><!-- start footer -->
+	</body>
+</html>
